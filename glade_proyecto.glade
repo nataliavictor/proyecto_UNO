@@ -2,7 +2,7 @@
 <!-- Generated with glade 3.40.0 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
-  <object class="GtkApplicationWindow">
+  <object class="GtkApplicationWindow" id="main_window">
     <property name="can-focus">False</property>
     <child>
       <object class="GtkBox">
@@ -10,10 +10,13 @@
         <property name="can-focus">False</property>
         <property name="orientation">vertical</property>
         <child>
-          <object class="GtkImage">
+          <object class="GtkImage" id="uno">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="pixbuf">../Descargas/UNO.png</property>
+            <property name="margin-bottom">1</property>
+            <property name="xpad">0</property>
+            <property name="ypad">0</property>
+            <property name="pixbuf">uno.png</property>
           </object>
           <packing>
             <property name="expand">True</property>
@@ -27,7 +30,7 @@
             <property name="can-focus">False</property>
             <property name="margin-top">13</property>
             <child>
-              <object class="GtkButton">
+              <object class="GtkButton" id="btn_play">
                 <property name="label" translatable="yes">PLAY</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
@@ -40,7 +43,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="GtkButton" id="btn_exit">
                 <property name="label" translatable="yes">EXIT</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
@@ -57,6 +60,83 @@
             <property name="expand">True</property>
             <property name="fill">True</property>
             <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkWindow" id="player_window">
+    <property name="can-focus">False</property>
+    <property name="title" translatable="yes">Elegir número de jugadores</property>
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">33</property>
+        <child>
+          <object class="GtkButton" id="btn_1">
+            <property name="label" translatable="yes">1 Jugador</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="btn_2">
+            <property name="label" translatable="yes">2 Jugadores</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="btn_3">
+            <property name="label" translatable="yes">3 Jugadores</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="btn_4">
+            <property name="label" translatable="yes">4 Jugadores</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="btn_back">
+            <property name="label" translatable="yes">Back</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">4</property>
           </packing>
         </child>
       </object>
