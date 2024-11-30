@@ -138,14 +138,38 @@ void asignar_cartas_iniciales(GameData *game_data, int num_jugadores) {
 // Función para manejar el clic en el botón "Play"
 void on_btn_play_clicked(GtkWidget *widget, gpointer data) {
     GtkWidget *player_window = (GtkWidget *)data;
+
     gtk_widget_show_all(player_window);
+
+    if (GTK_IS_WINDOW(player_window)) {
+        gtk_widget_show_all(player_window); // Mostrar la ventana de selección de jugadores
+        g_print("Ventana 'player_window' mostrada correctamente.\n");
+    } else {
+        g_printerr("Error: 'player_window' no es un GtkWindow.\n");
+    }
 }
 
 // Función para manejar el clic en el botón "Back"
 void on_btn_back_clicked(GtkWidget *widget, gpointer data) {
     GtkWidget *main_window = (GtkWidget *)data;
+
     gtk_widget_hide(gtk_widget_get_toplevel(widget));
     gtk_widget_show_all(main_window);
+
+    if (GTK_IS_WINDOW(main_window)) {
+        gtk_widget_hide(gtk_widget_get_toplevel(widget)); // Ocultar player_window
+        gtk_widget_show_all(main_window); // Mostrar la ventana principal
+        g_print("Ventana principal mostrada correctamente.\n");
+    } else {
+        g_printerr("Error: 'main_window' no es un GtkWindow.\n");
+    }
+}
+
+// Función para manejar el clic en el botón "Exit"
+void on_btn_exit_clicked(GtkWidget *widget, gpointer data) {
+    g_print("Saliendo del juego.\n");
+    gtk_main_quit(); // Termina el bucle principal y cierra la aplicación
+
 }
 
 // Interceptar cierre con botón "X"
@@ -175,17 +199,30 @@ int main(int argc, char *argv[]) {
     GtkWidget *btn_select_players[NUM_JUGADORES];
 
     GameData game_data = {NULL, NULL, NULL, NULL, {NULL}, 0};
+    GtkWidget *main_window, *player_window;
+    GtkWidget *btn_play, *btn_back, *btn_exit;
+    GError *error = NULL;
 
+
+    g_print("Iniciando la aplicación.\n");
     gtk_init(&argc, &argv);
+
+
+    // Cargar archivo Glade
     builder = gtk_builder_new();
     gtk_builder_add_from_file(builder, "glade_proyecto.glade", NULL);
 
     main_window = GTK_WIDGET(gtk_builder_get_object(builder, "main_window"));
     player_window = GTK_WIDGET(gtk_builder_get_object(builder, "player_window"));
     game_window = GTK_WIDGET(gtk_builder_get_object(builder, "game_window"));
+
     btn_play = GTK_WIDGET(gtk_builder_get_object(builder, "btn_play"));
     btn_exit = GTK_WIDGET(gtk_builder_get_object(builder, "btn_exit"));
     btn_back = GTK_WIDGET(gtk_builder_get_object(builder, "btn_back"));
+    btn_exit = GTK_WIDGET(gtk_builder_get_object(builder, "btn_exit"));
+
+    // Manejar el evento 'delete-event' para evitar destruir player_window
+    g_signal_connect(player_window, "delete-event", G_CALLBACK(gtk_widget_hide_on_delete), NULL);
 
     gtk_window_set_default_size(GTK_WINDOW(main_window), 600, 400);
     gtk_window_set_resizable(GTK_WINDOW(main_window), FALSE);
@@ -206,6 +243,12 @@ int main(int argc, char *argv[]) {
     g_signal_connect(btn_play, "clicked", G_CALLBACK(on_btn_play_clicked), player_window);
     g_signal_connect(btn_exit, "clicked", G_CALLBACK(gtk_main_quit), NULL);
     g_signal_connect(btn_back, "clicked", G_CALLBACK(on_btn_back_clicked), main_window);
+    g_signal_connect(btn_exit, "clicked", G_CALLBACK(on_btn_exit_clicked), NULL);
+
+    // Mostrar ventana principal
+    gtk_widget_show_all(main_window);
+    gtk_window_present(GTK_WINDOW(main_window)); // Forzar el foco
+
 
     for (int i = 1; i < NUM_JUGADORES; i++) { // Comienza desde 2 jugadores (i = 1)
     char id[20];
@@ -217,6 +260,7 @@ int main(int argc, char *argv[]) {
 
     inicializar_mazo(&game_data);
     gtk_widget_show_all(main_window);
+
     gtk_main();
 
     return 0;
