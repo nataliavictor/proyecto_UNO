@@ -14,7 +14,7 @@ typedef struct {
     GtkWidget *btn_descarte;
     GtkWidget *flowboxes[NUM_JUGADORES];
     int jugador_actual;
-<<<<<<< HEAD
+
     int num_jugadores_activos; // Nuevo: Número de jugadores activos
 } GameData;
 
@@ -23,10 +23,10 @@ void on_card_clicked(GtkWidget *widget, gpointer data);
 void on_btn_mazo_clicked(GtkWidget *widget, gpointer data);
 void actualizar_cartas_visibles(GameData *game_data);
 
-=======
+
 } GameData;
 
->>>>>>> 5be5689aaace323f1733323afeb2497b3c1176e6
+
 // Lista de nombres de todas las cartas UNO
 const char *cartas[] = {
     // Cartas numéricas
@@ -120,7 +120,7 @@ const char *obtener_carta_del_mazo(GameData *game_data) {
     return carta;
 }
 
-<<<<<<< HEAD
+
 
 // Manejo del botón "mazo" (robar carta)
 void on_btn_mazo_clicked(GtkWidget *widget, gpointer data) {
@@ -148,15 +148,15 @@ void on_btn_mazo_clicked(GtkWidget *widget, gpointer data) {
     }
 }
 
-=======
+
 // Asignar cartas iniciales
->>>>>>> 5be5689aaace323f1733323afeb2497b3c1176e6
+
 void asignar_cartas_iniciales(GameData *game_data, int num_jugadores) {
     limpiar_flowboxes(game_data);
 
     for (int jugador = 0; jugador < num_jugadores; jugador++) {
         for (int i = 0; i < MAX_CARTAS_JUGADOR; i++) {
-<<<<<<< HEAD
+
             const char *carta = obtener_carta_del_mazo(game_data);
             if (!carta) {
                 g_warning("No hay más cartas en el mazo.");
@@ -246,7 +246,7 @@ void actualizar_cartas_visibles(GameData *game_data) {
         g_list_free(children);
     }
 }
-=======
+
             const char *carta;
             GtkWidget *boton = gtk_button_new();
             gtk_widget_set_size_request(boton, 75, 50); // Tamaño horizontal para todos
@@ -266,14 +266,14 @@ void actualizar_cartas_visibles(GameData *game_data) {
         }
     }
 }
->>>>>>> 5be5689aaace323f1733323afeb2497b3c1176e6
+
 
 // Función para manejar el clic en el botón "Play"
 void on_btn_play_clicked(GtkWidget *widget, gpointer data) {
     GtkWidget *player_window = (GtkWidget *)data;
-<<<<<<< HEAD
+
     gtk_widget_show_all(player_window);
-=======
+
 
     gtk_widget_show_all(player_window);
 
@@ -283,13 +283,13 @@ void on_btn_play_clicked(GtkWidget *widget, gpointer data) {
     } else {
         g_printerr("Error: 'player_window' no es un GtkWindow.\n");
     }
->>>>>>> 5be5689aaace323f1733323afeb2497b3c1176e6
+
 }
 
 // Función para manejar el clic en el botón "Back"
 void on_btn_back_clicked(GtkWidget *widget, gpointer data) {
     GtkWidget *main_window = (GtkWidget *)data;
-<<<<<<< HEAD
+
     gtk_widget_hide(gtk_widget_get_toplevel(widget));
     gtk_widget_show_all(main_window);
 }
@@ -319,7 +319,7 @@ void reiniciar_juego(GameData *game_data) {
     actualizar_cartas_visibles(game_data);
 
     g_print("Juego reiniciado. Turno del jugador 1.\n");
-=======
+
 
     gtk_widget_hide(gtk_widget_get_toplevel(widget));
     gtk_widget_show_all(main_window);
@@ -338,20 +338,19 @@ void on_btn_exit_clicked(GtkWidget *widget, gpointer data) {
     g_print("Saliendo del juego.\n");
     gtk_main_quit(); // Termina el bucle principal y cierra la aplicación
 
->>>>>>> 5be5689aaace323f1733323afeb2497b3c1176e6
+
 }
 
 // Interceptar cierre con botón "X"
 gboolean on_window_delete_event(GtkWidget *widget, GdkEvent *event, gpointer data) {
-<<<<<<< HEAD
+
     GameData *game_data = (GameData *)data;
 
     // Reinicia el juego al cerrar la ventana
     reiniciar_juego(game_data);
 
     // Esconde la ventana en lugar de destruirla
-=======
->>>>>>> 5be5689aaace323f1733323afeb2497b3c1176e6
+
     gtk_widget_hide(widget);
     return TRUE;
 }
@@ -363,32 +362,31 @@ void on_select_players(GtkButton *button, gpointer data) {
     GameData *game_data = (GameData *)params[1];
     const char *label = gtk_button_get_label(GTK_BUTTON(button));
     int num_jugadores = atoi(label);
-<<<<<<< HEAD
+
 
     game_data->num_jugadores_activos = num_jugadores;
 
     inicializar_mazo(game_data);
     asignar_cartas_iniciales(game_data, num_jugadores);
     actualizar_cartas_visibles(game_data); // Asegúrate de que las cartas se vean correctamente
-=======
+
     inicializar_mazo(game_data);
     asignar_cartas_iniciales(game_data, num_jugadores);
->>>>>>> 5be5689aaace323f1733323afeb2497b3c1176e6
+
     gtk_widget_show_all(game_window);
 }
 
 // MAIN
-<<<<<<< HEAD
 
-=======
->>>>>>> 5be5689aaace323f1733323afeb2497b3c1176e6
+
+
 int main(int argc, char *argv[]) {
     GtkBuilder *builder;
     GtkWidget *main_window, *player_window, *game_window;
     GtkWidget *btn_play, *btn_exit, *btn_back;
     GtkWidget *flowboxes[NUM_JUGADORES];
     GtkWidget *btn_select_players[NUM_JUGADORES];
-<<<<<<< HEAD
+
     GtkWidget *btn_mazo, *btn_descarte;
 
     GameData game_data = {NULL, NULL, NULL, NULL, {NULL}, 0};
@@ -398,7 +396,7 @@ int main(int argc, char *argv[]) {
     // Inicializar semilla para números aleatorios
     srand((unsigned int)time(NULL));
 
-=======
+
 
     GameData game_data = {NULL, NULL, NULL, NULL, {NULL}, 0};
     GtkWidget *main_window, *player_window;
@@ -411,21 +409,21 @@ int main(int argc, char *argv[]) {
 
 
     // Cargar archivo Glade
->>>>>>> 5be5689aaace323f1733323afeb2497b3c1176e6
+
     builder = gtk_builder_new();
     gtk_builder_add_from_file(builder, "glade_proyecto.glade", NULL);
 
     main_window = GTK_WIDGET(gtk_builder_get_object(builder, "main_window"));
     player_window = GTK_WIDGET(gtk_builder_get_object(builder, "player_window"));
     game_window = GTK_WIDGET(gtk_builder_get_object(builder, "game_window"));
-<<<<<<< HEAD
+
     btn_play = GTK_WIDGET(gtk_builder_get_object(builder, "btn_play"));
-=======
+
 
     btn_play = GTK_WIDGET(gtk_builder_get_object(builder, "btn_play"));
     btn_exit = GTK_WIDGET(gtk_builder_get_object(builder, "btn_exit"));
     btn_back = GTK_WIDGET(gtk_builder_get_object(builder, "btn_back"));
->>>>>>> 5be5689aaace323f1733323afeb2497b3c1176e6
+
     btn_exit = GTK_WIDGET(gtk_builder_get_object(builder, "btn_exit"));
     btn_back = GTK_WIDGET(gtk_builder_get_object(builder, "btn_back"));
     btn_mazo = GTK_WIDGET(gtk_builder_get_object(builder, "btn_mazo"));
@@ -451,8 +449,8 @@ int main(int argc, char *argv[]) {
         game_data.flowboxes[i] = flowboxes[i];
     }
 
-<<<<<<< HEAD
-=======
+
+
     gtk_window_set_default_size(GTK_WINDOW(main_window), 600, 400);
     gtk_window_set_resizable(GTK_WINDOW(main_window), FALSE);
     gtk_window_set_default_size(GTK_WINDOW(game_window), 200, 400);
@@ -469,7 +467,7 @@ int main(int argc, char *argv[]) {
         game_data.flowboxes[i] = flowboxes[i];
     }
 
->>>>>>> 5be5689aaace323f1733323afeb2497b3c1176e6
+
     g_signal_connect(btn_play, "clicked", G_CALLBACK(on_btn_play_clicked), player_window);
     g_signal_connect(btn_exit, "clicked", G_CALLBACK(gtk_main_quit), NULL);
     g_signal_connect(btn_back, "clicked", G_CALLBACK(on_btn_back_clicked), main_window);
@@ -486,8 +484,7 @@ int main(int argc, char *argv[]) {
     inicializar_mazo(&game_data);
     reiniciar_juego(&game_data); // Reinicia el juego al inicio
     gtk_widget_show_all(main_window);
-<<<<<<< HEAD
-=======
+
     gtk_window_present(GTK_WINDOW(main_window)); // Forzar el foco
 
 
@@ -502,7 +499,7 @@ int main(int argc, char *argv[]) {
     inicializar_mazo(&game_data);
     gtk_widget_show_all(main_window);
 
->>>>>>> 5be5689aaace323f1733323afeb2497b3c1176e6
+
     gtk_main();
 
     return 0;
