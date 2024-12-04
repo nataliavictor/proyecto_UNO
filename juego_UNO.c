@@ -165,6 +165,7 @@ const char *obtener_carta_del_mazo(GameData *game_data) {
     return carta;
 }
 
+
 // Manejo del botón "mazo" (robar carta)
 void on_btn_mazo_clicked(GtkWidget *widget, gpointer data) {
     GameData *game_data = (GameData *)data;
@@ -173,12 +174,18 @@ void on_btn_mazo_clicked(GtkWidget *widget, gpointer data) {
     if (carta) {
         GtkWidget *boton = gtk_button_new();
         configurar_boton_con_imagen(GTK_BUTTON(boton), carta, FALSE);
-        
-        g_object_set_data_full(G_OBJECT(boton), "ruta_carta", g_strdup(carta), g_free); // Asocia la ruta de la carta al botón
+
+        // Asocia la ruta de la carta al botón
+        g_object_set_data_full(G_OBJECT(boton), "ruta_carta", g_strdup(carta), g_free);
         g_object_set_data(G_OBJECT(boton), "jugador", GINT_TO_POINTER(game_data->jugador_actual));
 
+        // Conectar el evento "clicked" para las cartas nuevas
         g_signal_connect(boton, "clicked", G_CALLBACK(on_card_clicked), game_data);
+
+        // Añadir la carta al flowbox del jugador actual
         gtk_flow_box_insert(GTK_FLOW_BOX(game_data->flowboxes[game_data->jugador_actual]), boton, -1);
+
+        // Actualiza la visibilidad de las cartas
         actualizar_cartas_visibles(game_data);
 
         gtk_widget_show(boton);
@@ -552,7 +559,9 @@ void on_btn_back_clicked(GtkWidget *widget, gpointer data) {
 // Interceptar cierre con botón "X"
 gboolean on_window_delete_event(GtkWidget *widget, GdkEvent *event, gpointer data) {
     GameData *game_data = (GameData *)data;
+    // Reinicia el juego al cerrar la ventana
     reiniciar_juego(game_data);
+    // Esconde la ventana en lugar de destruirla
     gtk_widget_hide(widget);
     return TRUE;
 }
@@ -642,7 +651,7 @@ void on_select_players(GtkButton *button, gpointer data) {
 
     inicializar_mazo(game_data);
     asignar_cartas_iniciales(game_data, num_jugadores);
-    actualizar_cartas_visibles(game_data); // Asegúrate de que las cartas se vean correctamente
+    actualizar_cartas_visibles(game_data); // Asegura de que las cartas se vean correctamente
     gtk_widget_show_all(game_window);
 }
 
@@ -662,6 +671,7 @@ int main(int argc, char *argv[]) {
     // Inicializar semilla para números aleatorios
     srand((unsigned int)time(NULL));
 
+    // Cargar archivo Glade
     builder = gtk_builder_new();
     gtk_builder_add_from_file(builder, "glade_proyecto.glade", NULL);
 
